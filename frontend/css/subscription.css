@@ -1,0 +1,85 @@
+/* Subscription & Pricing Page */
+#subscription-page { flex-direction: column; }
+.sub-body { max-width: 860px; width: 100%; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+.pricing-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+@media (max-width: 600px) { .pricing-grid { grid-template-columns: 1fr; } }
+
+.plan-card {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: var(--radius-lg); padding: 1.75rem; position: relative;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.plan-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
+.plan-card.pro {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), 0 8px 32px var(--glow);
+}
+.plan-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; font-size: 0.72rem; font-weight: 700;
+  padding: 0.2rem 0.9rem; border-radius: 20px; white-space: nowrap;
+  font-family: var(--font-display); letter-spacing: 0.05em;
+}
+.plan-name {
+  font-family: var(--font-display); font-size: 1.2rem; font-weight: 800;
+  color: var(--text); margin-bottom: 0.25rem;
+}
+.plan-price {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 800;
+  color: var(--accent2); margin-bottom: 1.25rem; line-height: 1;
+}
+.plan-price span { font-size: 0.85rem; color: var(--muted); font-weight: 400; }
+.plan-features { list-style: none; margin-bottom: 1.5rem; }
+.plan-features li {
+  font-size: 0.875rem; padding: 0.4rem 0;
+  display: flex; align-items: center; gap: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.plan-features li:last-child { border-bottom: none; }
+.feat-check { color: var(--green); font-size: 13px; flex-shrink: 0; }
+.feat-lock  { color: var(--muted); font-size: 13px; flex-shrink: 0; }
+.feat-locked { color: var(--muted); }
+.btn-plan {
+  width: 100%; padding: 0.75rem; border-radius: var(--radius-sm);
+  font-family: var(--font-display); font-size: 0.9rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; border: none;
+}
+.btn-plan.free { background: var(--bg3); color: var(--muted); border: 1px solid var(--border2); }
+.btn-plan.pro  { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #fff; box-shadow: 0 4px 16px var(--glow); }
+.btn-plan.pro:hover { opacity: 0.9; transform: translateY(-1px); }
+.btn-plan.current { opacity: 0.6; cursor: default; }
+
+/* Usage bar */
+.usage-bar-wrap { margin-top: 1.5rem; }
+.usage-row { margin-bottom: 1rem; }
+.usage-label { display: flex; justify-content: space-between; font-size: 0.82rem; margin-bottom: 0.4rem; }
+.usage-label span:first-child { color: var(--text); }
+.usage-label span:last-child  { color: var(--muted); }
+.usage-bar { height: 6px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
+.usage-fill { height: 100%; border-radius: 3px; transition: width 0.6s ease; }
+
+/* Health score */
+.health-score-ring {
+  width: 120px; height: 120px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; margin: 0 auto 1.25rem;
+  border: 6px solid var(--border2); position: relative;
+}
+.health-score-num {
+  font-family: var(--font-display); font-size: 2rem; font-weight: 800; line-height: 1;
+}
+.health-score-label { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+.health-check-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.6rem 0.75rem; border-radius: var(--radius-sm);
+  margin-bottom: 0.4rem; font-size: 0.85rem;
+  background: var(--bg3); border: 1px solid var(--border);
+  transition: border-color 0.15s;
+}
+.health-check-row.passed { border-color: rgba(52,211,153,0.3); }
+.health-check-row.failed { border-color: rgba(248,113,113,0.2); opacity: 0.7; }
+.check-label { display: flex; align-items: center; gap: 0.5rem; }
+.check-points { font-size: 0.75rem; color: var(--muted); }
+.check-points.earned { color: var(--green); font-weight: 600; }

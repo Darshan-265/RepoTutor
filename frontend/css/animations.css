@@ -1,0 +1,44 @@
+/* ═══════════════════════════════════════════
+   Animations & Keyframes
+   All @keyframes and entrance animations.
+═══════════════════════════════════════════ */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); }
+  40%           { transform: translateY(-8px); }
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Staggered card entrance */
+.repo-card { animation: fadeUp 0.3s ease both; }
+.repo-card:nth-child(1) { animation-delay: 0.05s; }
+.repo-card:nth-child(2) { animation-delay: 0.10s; }
+.repo-card:nth-child(3) { animation-delay: 0.15s; }
+.repo-card:nth-child(4) { animation-delay: 0.20s; }
+.repo-card:nth-child(5) { animation-delay: 0.25s; }
+
+/* Message entrance */
+.msg { animation: slideIn 0.25s ease both; }

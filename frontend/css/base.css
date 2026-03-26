@@ -1,0 +1,75 @@
+/* ═══════════════════════════════════════════
+   Base Styles
+   Reset, body, background grid effects,
+   and page layout primitives.
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Background dot-grid */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(108,99,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(108,99,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none; z-index: 0;
+}
+
+/* Top ambient glow */
+body::after {
+  content: '';
+  position: fixed; top: -200px; left: 50%; transform: translateX(-50%);
+  width: 800px; height: 500px;
+  background: radial-gradient(ellipse, rgba(108,99,255,0.10) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+
+/* Page visibility */
+.page { display: none; position: relative; z-index: 1; min-height: 100vh; }
+.page.active { display: flex; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button { cursor: pointer; font-family: inherit; }
+input, textarea { font-family: inherit; }
+
+/* ── Ensure all display headings are clearly visible ── */
+h1, h2, h3, h4, h5, h6 { color: var(--text); }
+.repo-name    { color: var(--text) !important; }
+.dash-hero h2 { color: var(--text) !important; }
+.chat-repo-name { color: var(--text) !important; }
+.modal-title  { color: var(--text) !important; }
+.profile-hero-info h2 { color: var(--text) !important; }
+.auth-logo h1 { color: var(--text) !important; }
+
+/* ── Big heading font override ── */
+.dash-hero h2,
+.repo-name,
+.chat-repo-name,
+.auth-logo h1,
+.modal-title,
+.profile-hero-info h2,
+.profile-section h3,
+.summary-card-header,
+.bookmarks-body .dash-hero h2,
+.nav-logo {
+  font-family: 'Plus Jakarta Sans', 'Syne', sans-serif !important;
+  letter-spacing: -0.02em;
+}

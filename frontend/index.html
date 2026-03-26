@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RepoTutor v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/variables.css"/>
+  <link rel="stylesheet" href="css/base.css"/>
+  <link rel="stylesheet" href="css/components.css"/>
+  <link rel="stylesheet" href="css/auth.css"/>
+  <link rel="stylesheet" href="css/dashboard.css"/>
+  <link rel="stylesheet" href="css/chat.css"/>
+  <link rel="stylesheet" href="css/profile.css"/>
+  <link rel="stylesheet" href="css/bookmarks.css"/>
+  <link rel="stylesheet" href="css/subscription.css"/>
+  <link rel="stylesheet" href="css/compare.css"/>
+  <link rel="stylesheet" href="css/bugs.css"/>
+  <link rel="stylesheet" href="css/bugs.css"/>
+  <link rel="stylesheet" href="css/animations.css"/>
+</head>
+<body>
+
+<!-- ═══ AUTH PAGE ═══ -->
+<div id="auth-page" class="page">
+  <div class="auth-container">
+    <div class="auth-logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <h1>Repo<span>Tutor</span></h1>
+      <p>AI-powered GitHub repository understanding</p>
+    </div>
+    <div class="auth-card">
+      <div class="tab-row">
+        <button class="tab-btn active" id="tab-login"    onclick="switchTab('login')">Sign In</button>
+        <button class="tab-btn"        id="tab-register" onclick="switchTab('register')">Create Account</button>
+      </div>
+      <form id="auth-form" onsubmit="handleAuth(event)">
+        <div class="form-group"><label>Email</label>
+          <input class="form-input" type="email" id="auth-email" placeholder="you@example.com" required/></div>
+        <div class="form-group"><label>Password</label>
+          <input class="form-input" type="password" id="auth-password" placeholder="••••••••" required minlength="6"/></div>
+        <div class="error-msg"   id="auth-error"></div>
+        <div class="success-msg" id="auth-success"></div>
+        <button class="btn-primary" id="auth-btn" type="submit">Sign In</button>
+      </form>
+
+      <div style="display:flex;align-items:center;gap:0.75rem;margin:1.25rem 0">
+        <div style="flex:1;height:1px;background:var(--border2)"></div>
+        <span style="font-size:0.78rem;color:var(--muted)">or continue with</span>
+        <div style="flex:1;height:1px;background:var(--border2)"></div>
+      </div>
+
+      <div style="display:flex;gap:0.75rem">
+        <button id="btn-google" onclick="handleOAuthLogin('google')" style="
+          flex:1;display:flex;align-items:center;justify-content:center;gap:0.5rem;
+          padding:0.65rem;border-radius:var(--radius-sm);
+          background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+          font-size:0.875rem;cursor:pointer;transition:border-color 0.2s;font-family:inherit">
+          <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Continue with Google
+        </button>
+        <button id="btn-github" onclick="handleOAuthLogin('github')" style="
+          flex:1;display:flex;align-items:center;justify-content:center;gap:0.5rem;
+          padding:0.65rem;border-radius:var(--radius-sm);
+          background:var(--bg3);border:1px solid var(--border2);color:var(--text);
+          font-size:0.875rem;cursor:pointer;transition:border-color 0.2s;font-family:inherit">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+          Continue with GitHub
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DASHBOARD PAGE ═══ -->
+<div id="dashboard-page" class="page">
+  <nav class="navbar">
+    <div class="nav-logo" onclick="showPage('dashboard')">Repo<span class="dot">Tutor</span></div>
+    <div class="nav-right">
+      <button class="theme-toggle" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">🌙</button>
+      <span id="plan-badge" style="font-size:0.75rem;color:var(--muted);padding:0.25rem 0.6rem;border:1px solid var(--border2);border-radius:12px;cursor:pointer" onclick="showPage('subscription')">Free Plan</span>
+      <button class="btn-secondary" onclick="showPage('compare')" style="font-size:0.82rem;padding:0.3rem 0.75rem">Compare</button>
+      <button class="btn-secondary" onclick="showPage('bookmarks')" style="font-size:0.82rem;padding:0.3rem 0.75rem">Bookmarks</button>
+      <div class="nav-avatar" id="nav-avatar" onclick="showPage('profile')" title="Profile"></div>
+    </div>
+  </nav>
+  <div class="dashboard-body">
+    <div class="dash-hero">
+      <h2>Your Repositories</h2>
+      <p>Paste any public GitHub URL to analyse and start asking questions about the code.</p>
+    </div>
+    <div class="analyse-card">
+      <h3 class="card-label">Analyse a Repository</h3>
+      <div class="url-row">
+        <div class="url-input-wrap">
+          <svg class="url-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+          </svg>
+          <input class="url-input" id="repo-url" type="url" placeholder="https://github.com/owner/repo"/>
+        </div>
+        <button class="btn-analyse" id="analyse-btn" onclick="analyseRepo()">Analyse →</button>
+      </div>
+      <div class="error-msg" id="analyse-error" style="margin-top:0.75rem"></div>
+    </div>
+    <div class="stats-bar" id="stats-bar" style="display:none">
+      <div class="stat-item"><span class="stat-num" id="stat-repos">0</span><span class="stat-label">Repositories</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-num" id="stat-files">0</span><span class="stat-label">Files Indexed</span></div>
+      <div class="stat-divider"></div>
+      <div class="stat-item"><span class="stat-num" id="stat-questions">0</span><span class="stat-label">Questions Asked</span></div>
+    </div>
+    <div class="section-header" style="margin-bottom:0.75rem">
+      <span class="section-title">Recent Repositories</span>
+      <span id="search-count" style="font-size:0.78rem;color:var(--muted)"></span>
+    </div>
+
+    <!-- Search bar -->
+    <div style="position:relative;margin-bottom:1rem">
+      <svg style="position:absolute;left:0.9rem;top:50%;transform:translateY(-50%);opacity:0.4;width:15px;height:15px"
+        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+      <input
+        id="repo-search"
+        type="text"
+        placeholder="Search repositories by name, language..."
+        oninput="filterRepos(this.value)"
+        style="width:100%;background:var(--bg2);border:1px solid var(--border2);border-radius:var(--radius-sm);
+          color:var(--text);outline:none;font-size:0.875rem;padding:0.65rem 1rem 0.65rem 2.5rem;
+          transition:border-color 0.2s;font-family:var(--font-body)"
+        onfocus="this.style.borderColor='var(--accent)'"
+        onblur="this.style.borderColor='var(--border2)'"
+      />
+    </div>
+
+    <div class="repo-grid" id="repo-list"></div>
+  </div>
+</div>
+
+<!-- ═══ CHAT PAGE ═══ -->
+<div id="chat-page" class="page">
+  <div class="chat-header">
+    <button class="btn-back" onclick="showPage('dashboard')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back
+    </button>
+    <div class="chat-repo-info">
+      <span class="chat-repo-name" id="chat-repo-name"></span>
+      <span class="chat-repo-files" id="chat-repo-files"></span>
+    </div>
+    <div class="chat-tab-row">
+      <button class="chat-tab active" id="ctab-chat"    onclick="switchChatTab('chat')">Chat</button>
+      <button class="chat-tab"        id="ctab-summary" onclick="switchChatTab('summary')">Summary</button>
+      <button class="chat-tab"        id="ctab-files"   onclick="switchChatTab('files')">Files</button>
+      <button class="chat-tab"        id="ctab-search"   onclick="switchChatTab('search')">Search</button>
+      <button class="chat-tab"        id="ctab-bugs"    onclick="switchChatTab('bugs')">Bug Hunter</button>
+      <button class="chat-tab"        id="ctab-activity" onclick="switchChatTab('activity')">Activity</button>
+      <button id="export-pdf-btn" onclick="exportChatPDF()" style="
+        padding:0.3rem 0.75rem;border-radius:7px;border:1px solid var(--border2);
+        background:transparent;color:var(--muted);font-size:0.78rem;cursor:pointer;
+        white-space:nowrap;transition:all 0.15s;font-family:inherit"
+        onmouseover="this.style.borderColor='var(--accent2)';this.style.color='var(--accent2)'"
+        onmouseout="this.style.borderColor='var(--border2)';this.style.color='var(--muted)'">
+         Export PDF
+      </button>
+    </div>
+  </div>
+
+  <div class="chat-panels">
+    <!-- Chat -->
+    <div class="panel active" id="panel-chat">
+      <div class="messages-wrap" id="messages-wrap">
+        <div class="messages-inner" id="messages-inner"></div>
+      </div>
+      <div class="suggestions-bar" id="suggestions-bar">
+        <div class="suggestions-label">Try asking</div>
+        <div class="suggestion-chips" id="suggestion-chips"></div>
+      </div>
+      <div class="chat-input-bar">
+        <div class="input-row">
+          <div class="input-wrap">
+            <input class="chat-input" id="chat-input" placeholder="Ask anything about this repository…" onkeydown="handleInputKey(event)"/>
+          </div>
+          <button class="btn-send" id="send-btn" onclick="sendMessage()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+        <div class="input-footer">
+          <span class="input-hint">Enter to send</span>
+          <button class="btn-clear-chat" onclick="clearChat()">Clear conversation</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div class="panel" id="panel-summary">
+      <div class="summary-scroll">
+        <div class="summary-inner">
+          <div class="summary-card">
+            <div class="summary-card-header" style="justify-content:space-between;align-items:center">
+              <span style="display:flex;align-items:center;gap:0.5rem">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                Repository Summary
+              </span>
+              <button id="gen-summary-btn" onclick="generateSummary()" style="padding:0.3rem 0.9rem;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent2));border:none;color:#fff;font-size:0.78rem;cursor:pointer;font-weight:600;white-space:nowrap">
+                ✨ Generate Summary
+              </button>
+            </div>
+            <div id="summary-content" class="markdown-body"></div>
+          </div>
+          <div class="meta-card" id="meta-card"></div>
+          <div class="summary-card top-questions" id="top-questions-card" style="display:none">
+            <div class="summary-card-header">Most Asked Questions</div>
+            <div id="top-questions-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Files -->
+    <div class="panel" id="panel-files">
+      <div class="files-scroll">
+        <div class="files-inner">
+          <div class="files-search-wrap">
+            <input class="files-search" id="files-search" placeholder="Filter files…" oninput="filterFiles(this.value)"/>
+          </div>
+          <div class="files-tree" id="files-tree"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bug Hunter -->
+    <div class="panel" id="panel-bugs">
+      <div class="bug-report-wrap">
+        <div class="bug-report-inner">
+          <div class="bug-scan-card">
+            <div class="bug-scan-header">
+              <div class="bug-scan-title">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                  <line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                </svg>
+                Bug Hunter
+              </div>
+              <button class="btn-scan" id="btn-bug-scan" onclick="runBugScan()">
+                Run Scan
+              </button>
+            </div>
+            <p style="font-size:0.82rem;color:var(--muted);margin-bottom:0">
+              Scans the repository for security vulnerabilities, potential bugs, bad practices, and performance issues.
+            </p>
+          </div>
+          <div id="bug-output" class="markdown-body">
+            <div class="bug-placeholder">
+              <div class="icon">🔍</div>
+              <p>Click "Run Scan" to analyse this repository for issues</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Activity Feed -->
+    <div class="panel" id="panel-activity">
+      <div class="activity-wrap">
+        <div class="activity-inner">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem">
+            <div style="font-family:var(--font-display);font-weight:800;font-size:1rem;color:var(--text)">
+              Live GitHub Activity
+            </div>
+            <button class="btn-refresh-activity" onclick="loadActivity(currentRepoId)">
+              Refresh
+            </button>
+          </div>
+          <div id="activity-content">
+            <div class="activity-empty">Loading activity...</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search -->
+    <div class="panel" id="panel-search">
+      <div class="search-panel">
+        <div class="search-inner">
+          <div class="search-input-wrap">
+            <input class="search-input" id="code-search-input" placeholder="Search keyword across all files…" onkeydown="if(event.key==='Enter') doCodeSearch()"/>
+          </div>
+          <div id="search-results"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PROFILE PAGE ═══ -->
+<div id="profile-page" class="page">
+  <nav class="navbar">
+    <div class="nav-logo" onclick="showPage('dashboard')">Repo<span class="dot">Tutor</span></div>
+    <div class="nav-right">
+      <button class="btn-ghost" onclick="showPage('dashboard')">← Dashboard</button>
+    </div>
+  </nav>
+  <div class="profile-body">
+    <div class="profile-hero">
+      <div class="profile-avatar-big" id="profile-avatar-big"></div>
+      <div class="profile-hero-info">
+        <h2 id="profile-name-display">My Profile</h2>
+        <p id="profile-email-display"></p>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <h3>Account Stats</h3>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="num" id="ps-repos">0</div><div class="lbl">Repositories</div></div>
+        <div class="stat-card"><div class="num" id="ps-files">0</div><div class="lbl">Files Indexed</div></div>
+        <div class="stat-card"><div class="num" id="ps-questions">0</div><div class="lbl">Questions Asked</div></div>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <h3>Display Name</h3>
+      <div class="form-group" style="margin-bottom:0.75rem">
+        <input class="form-input" id="profile-name-input" placeholder="Your name (optional)"/>
+      </div>
+      <h3 style="margin-top:1rem">Avatar Color</h3>
+      <div class="color-picker-row" id="color-picker"></div>
+      <button class="btn-primary" onclick="saveProfile()" style="margin-top:1rem">Save Profile</button>
+      <div class="success-msg" id="profile-success" style="margin-top:0.5rem"></div>
+    </div>
+
+    <div class="profile-section">
+      <h3>Theme</h3>
+      <div class="theme-options">
+        <div class="theme-option" id="theme-opt-dark"  onclick="setTheme('dark')">
+          <span class="icon">🌙</span> Dark
+        </div>
+        <div class="theme-option" id="theme-opt-light" onclick="setTheme('light')">
+          <span class="icon">☀️</span> Light
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-section">
+      <h3>Change Password</h3>
+      <div class="form-group"><label>Current Password</label>
+        <input class="form-input" type="password" id="old-password" placeholder="••••••••"/></div>
+      <div class="form-group"><label>New Password</label>
+        <input class="form-input" type="password" id="new-password" placeholder="••••••••" minlength="6"/></div>
+      <div class="error-msg"   id="pwd-error"   style="margin-bottom:0.5rem"></div>
+      <div class="success-msg" id="pwd-success" style="margin-bottom:0.5rem"></div>
+      <button class="btn-secondary" onclick="changePassword()">Update Password</button>
+    </div>
+
+    <div class="profile-section">
+      <h3>Session</h3>
+      <button class="btn-ghost" onclick="logout()">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- COMPARE PAGE -->
+<div id="compare-page" class="page">
+  <nav class="navbar">
+    <div class="nav-logo" onclick="showPage('dashboard')">Repo<span class="dot">Tutor</span></div>
+    <div class="nav-right">
+      <button class="btn-ghost" onclick="showPage('dashboard')">Back</button>
+    </div>
+  </nav>
+  <div class="compare-body">
+    <div class="dash-hero">
+      <h2>Repo Comparison</h2>
+      <p>Select two repositories to compare their architecture, code quality, and tech stack side by side.</p>
+    </div>
+
+    <!-- Selectors -->
+    <div class="compare-selectors">
+      <select class="repo-select" id="compare-select-1">
+        <option value="">-- Select Repository A --</option>
+      </select>
+      <div class="vs-badge">VS</div>
+      <select class="repo-select" id="compare-select-2">
+        <option value="">-- Select Repository B --</option>
+      </select>
+    </div>
+
+    <!-- Meta cards -->
+    <div class="compare-meta">
+      <div id="meta-1"></div>
+      <div id="meta-2"></div>
+    </div>
+
+    <!-- Compare button -->
+    <button class="btn-compare" id="btn-compare" onclick="runComparison()">
+      Compare Repositories
+    </button>
+
+    <!-- Result -->
+    <div class="compare-result">
+      <div class="compare-result-header">
+        <span class="compare-result-title">AI Comparison Report</span>
+      </div>
+      <div id="compare-output" class="markdown-body">
+        <div class="compare-placeholder">
+          <div class="icon">&#9878;</div>
+          <p>Select two repositories above and click Compare</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SUBSCRIPTION PAGE ═══ -->
+<div id="subscription-page" class="page">
+  <nav class="navbar">
+    <div class="nav-logo" onclick="showPage('dashboard')">Repo<span class="dot">Tutor</span></div>
+    <div class="nav-right">
+      <button class="btn-ghost" onclick="showPage('dashboard')">← Dashboard</button>
+    </div>
+  </nav>
+  <div class="sub-body">
+    <div class="dash-hero">
+      <h2>⚡ Plans & Pricing</h2>
+      <p>Choose the plan that works for you.</p>
+    </div>
+    <div id="sub-content"></div>
+  </div>
+</div>
+
+<!-- ═══ BOOKMARKS PAGE ═══ -->
+<div id="bookmarks-page" class="page">
+  <nav class="navbar">
+    <div class="nav-logo" onclick="showPage('dashboard')">Repo<span class="dot">Tutor</span></div>
+    <div class="nav-right">
+      <button class="btn-ghost" onclick="showPage('dashboard')">← Dashboard</button>
+    </div>
+  </nav>
+  <div class="bookmarks-body">
+    <div class="dash-hero">
+      <h2>Saved Answers</h2>
+      <p>Answers you bookmarked from your chats.</p>
+    </div>
+    <div id="bookmarks-list"></div>
+  </div>
+</div>
+
+
+
+<!-- Bug Hunter Modal -->
+<div class="modal-overlay" id="bug-modal">
+  <div class="modal" style="max-width:620px">
+    <div class="modal-header">
+      <span class="modal-title" id="bug-modal-title">Bug Hunter</span>
+      <button class="btn-close" onclick="closeModal('bug-modal')">x</button>
+    </div>
+    <div class="bug-filters">
+      <button class="bug-filter-btn active" data-type="all"      onclick="runBugScan('all')">All Issues</button>
+      <button class="bug-filter-btn"        data-type="security" onclick="runBugScan('security')">Security</button>
+      <button class="bug-filter-btn"        data-type="quality"  onclick="runBugScan('quality')">Code Quality</button>
+    </div>
+    <div class="bug-summary-bar" id="bug-summary-bar" style="display:none"></div>
+    <div id="bug-content" style="max-height:60vh;overflow-y:auto">
+      <p style="color:var(--muted);text-align:center;padding:2rem">Select a scan type above to start.</p>
+    </div>
+  </div>
+</div>
+<!-- Activity Modal -->
+<div class="modal-overlay" id="activity-modal">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-header">
+      <span class="modal-title" id="activity-modal-title">Live Activity</span>
+      <div style="display:flex;gap:0.5rem;align-items:center">
+        <button class="btn-secondary" onclick="loadActivity()" style="font-size:0.78rem;padding:0.25rem 0.6rem">Refresh</button>
+        <button class="btn-close" onclick="closeModal('activity-modal')">x</button>
+      </div>
+    </div>
+    <div id="activity-content" style="max-height:70vh;overflow-y:auto">
+      <p style="color:var(--muted);text-align:center;padding:2rem">Loading...</p>
+    </div>
+  </div>
+</div>
+
+<!-- Health score modal -->
+<div class="modal-overlay" id="health-modal">
+  <div class="modal" style="max-width:540px">
+    <div class="modal-header">
+      <span class="modal-title">Code Health Score</span>
+      <button class="btn-close" onclick="closeModal('health-modal')">✕</button>
+    </div>
+    <div id="health-content"></div>
+  </div>
+</div>
+
+<!-- File viewer modal -->
+<div class="modal-overlay" id="file-modal">
+  <div class="modal" style="max-width:700px">
+    <div class="modal-header">
+      <span class="modal-title" id="file-modal-name" style="font-family:monospace;font-size:0.9rem"></span>
+      <button class="btn-close" onclick="closeModal('file-modal')">✕</button>
+    </div>
+    <div class="file-viewer-content" id="file-viewer-content"></div>
+  </div>
+</div>
+
+<!-- Tutorial modal -->
+<div class="modal-overlay" id="tutorial-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title">Welcome to RepoTutor!</span>
+      <button class="btn-close" onclick="closeTutorial()">✕</button>
+    </div>
+    <div id="tutorial-content"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem">
+      <div style="display:flex;gap:6px" id="tutorial-dots"></div>
+      <div style="display:flex;gap:0.5rem">
+        <button class="btn-secondary" id="tutorial-prev" onclick="tutorialNav(-1)">← Prev</button>
+        <button class="btn-primary" id="tutorial-next" onclick="tutorialNav(1)" style="width:auto;padding:0.5rem 1.25rem">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="js/utils/api.js"></script>
+<script src="js/utils/helpers.js"></script>
+<script src="js/components/toast.js"></script>
+<script src="js/components/markdown.js"></script>
+<script src="js/pages/auth.js"></script>
+<script src="js/pages/dashboard.js"></script>
+<script src="js/pages/chat.js"></script>
+<script src="js/pages/profile.js"></script>
+<script src="js/pages/bookmarks.js"></script>
+<script src="js/pages/bugs.js"></script>
+<script src="js/pages/activity.js"></script>
+<script src="js/pages/compare.js"></script>
+<script src="js/pages/bugs.js"></script>
+<script src="js/pages/activity.js"></script>
+<script src="js/pages/subscription.js"></script>
+<script src="js/pages/health.js"></script>
+<script src="js/pages/tutorial.js"></script>
+<script src="js/app.js"></script>

@@ -1,0 +1,50 @@
+/* Profile Page */
+#profile-page { flex-direction:column; }
+.profile-body { max-width:680px; width:100%; margin:0 auto; padding:2.5rem 1.5rem; }
+.profile-hero { display:flex; align-items:center; gap:1.25rem; margin-bottom:2rem; }
+.profile-avatar-big {
+  width:64px; height:64px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-size:1.4rem; font-weight:800; color:#fff;
+  flex-shrink:0;
+}
+.profile-hero-info h2 { font-family:var(--font-display); font-size:1.3rem; font-weight:800; }
+.profile-hero-info p { color:var(--muted); font-size:0.85rem; margin-top:0.2rem; }
+
+.profile-section {
+  background:var(--bg2); border:1px solid var(--border2);
+  border-radius:var(--radius-lg); padding:1.5rem; margin-bottom:1rem;
+}
+.profile-section h3 {
+  font-family:var(--font-display); font-size:0.85rem; font-weight:700;
+  color:var(--accent2); text-transform:uppercase; letter-spacing:0.08em;
+  margin-bottom:1.25rem;
+}
+.color-picker-row { display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem; }
+.color-dot {
+  width:28px; height:28px; border-radius:50%; cursor:pointer;
+  transition:transform var(--ease), box-shadow var(--ease);
+  border:2px solid transparent;
+}
+.color-dot:hover { transform:scale(1.15); }
+.color-dot.selected { border-color:#fff; box-shadow:0 0 0 3px var(--glow); }
+
+.stats-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+.stat-card {
+  background:var(--bg3); border:1px solid var(--border);
+  border-radius:var(--radius-md); padding:1rem; text-align:center;
+}
+.stat-card .num { font-family:var(--font-display); font-size:1.6rem; font-weight:800; color:var(--accent2); }
+.stat-card .lbl { font-size:0.75rem; color:var(--muted); margin-top:2px; }
+
+/* Theme toggle section */
+.theme-options { display:flex; gap:0.75rem; }
+.theme-option {
+  flex:1; padding:0.75rem; border-radius:var(--radius-md);
+  border:2px solid var(--border2); cursor:pointer;
+  text-align:center; transition:all var(--ease);
+  font-size:0.875rem; background:var(--bg3);
+}
+.theme-option:hover { border-color:var(--accent); }
+.theme-option.selected { border-color:var(--accent); background:rgba(108,99,255,0.1); color:var(--accent2); }
+.theme-option .icon { font-size:1.25rem; display:block; margin-bottom:0.3rem; }

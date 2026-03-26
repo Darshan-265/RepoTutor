@@ -1,0 +1,70 @@
+/* Compare Page */
+#compare-page { flex-direction: column; }
+.compare-body { max-width: 960px; width: 100%; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+.compare-selectors {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem;
+  align-items: center; margin-bottom: 1.5rem;
+}
+.vs-badge {
+  font-family: var(--font-display); font-size: 0.9rem; font-weight: 800;
+  color: var(--accent2); background: rgba(108,99,255,0.12);
+  border: 1px solid rgba(108,99,255,0.3); border-radius: 20px;
+  padding: 0.3rem 0.8rem; text-align: center; white-space: nowrap;
+}
+.repo-select {
+  width: 100%; background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: var(--radius-md); color: var(--text); outline: none;
+  font-size: 0.875rem; padding: 0.75rem 1rem;
+  transition: border-color var(--ease); font-family: var(--font-body);
+  cursor: pointer;
+}
+.repo-select:focus { border-color: var(--accent); }
+.repo-select option { background: var(--bg2); color: var(--text); }
+
+.compare-meta {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;
+}
+.compare-meta-card {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: var(--radius-md); padding: 1rem 1.25rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.compare-meta-card .repo-card-icon {
+  width: 36px; height: 36px; flex-shrink: 0;
+}
+.compare-meta-info { min-width: 0; }
+.compare-meta-name {
+  font-family: var(--font-display); font-weight: 700; font-size: 0.9rem;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.compare-meta-sub { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+.compare-result {
+  background: var(--bg2); border: 1px solid var(--border2);
+  border-radius: var(--radius-lg); padding: 1.75rem;
+}
+.compare-result-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+.compare-result-title {
+  font-family: var(--font-display); font-weight: 800; font-size: 1rem;
+  color: var(--accent2);
+}
+.compare-placeholder {
+  text-align: center; padding: 4rem 2rem; color: var(--muted);
+}
+.compare-placeholder .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.4; }
+.compare-placeholder p { font-size: 0.9rem; }
+
+.btn-compare {
+  width: 100%; padding: 0.85rem; margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  border: none; border-radius: var(--radius-md); color: #fff;
+  font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+  cursor: pointer; transition: opacity var(--ease), transform var(--ease);
+  box-shadow: 0 4px 20px var(--glow);
+}
+.btn-compare:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.btn-compare:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
