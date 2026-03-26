@@ -27,47 +27,93 @@ RepoTutor is a full-stack web application that enables developers, students, and
 
 ```
 repotutor/
-│
-├── run.py                          # App entry point
+├── README.md
+├── backend
+│   ├── __init__.py
+│   ├── __pycache__
+│   │   ├── __init__.cpython-313.pyc
+│   │   └── config.cpython-313.pyc
+│   ├── config.py
+│   ├── models
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-313.pyc
+│   │   │   └── database.cpython-313.pyc
+│   │   └── database.py
+│   ├── routes
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-313.pyc
+│   │   │   ├── activity.cpython-313.pyc
+│   │   │   ├── auth.cpython-313.pyc
+│   │   │   ├── bugs.cpython-313.pyc
+│   │   │   ├── chat.cpython-313.pyc
+│   │   │   ├── compare.cpython-313.pyc
+│   │   │   ├── health.cpython-313.pyc
+│   │   │   ├── repos.cpython-313.pyc
+│   │   │   └── subscription.cpython-313.pyc
+│   │   ├── activity.py
+│   │   ├── auth.py
+│   │   ├── bugs.py
+│   │   ├── chat.py
+│   │   ├── compare.py
+│   │   ├── health.py
+│   │   ├── repos.py
+│   │   └── subscription.py
+│   ├── services
+│   │   ├── __init__.py
+│   │   ├── __pycache__
+│   │   │   ├── __init__.cpython-313.pyc
+│   │   │   ├── github_service.cpython-313.pyc
+│   │   │   ├── groq_service.cpython-313.pyc
+│   │   │   └── health_service.cpython-313.pyc
+│   │   ├── github_service.py
+│   │   ├── groq_service.py
+│   │   └── health_service.py
+│   └── utils
+│       ├── __init__.py
+│       ├── __pycache__
+│       │   ├── __init__.cpython-313.pyc
+│       │   └── auth_utils.cpython-313.pyc
+│       └── auth_utils.py
+├── frontend
+│   ├── css
+│   │   ├── animations.css
+│   │   ├── auth.css
+│   │   ├── base.css
+│   │   ├── bookmarks.css
+│   │   ├── bugs.css
+│   │   ├── chat.css
+│   │   ├── compare.css
+│   │   ├── components.css
+│   │   ├── dashboard.css
+│   │   ├── profile.css
+│   │   ├── subscription.css
+│   │   └── variables.css
+│   ├── index.html
+│   └── js
+│       ├── app.js
+│       ├── components
+│       │   ├── markdown.js
+│       │   └── toast.js
+│       ├── pages
+│       │   ├── activity.js
+│       │   ├── auth.js
+│       │   ├── bookmarks.js
+│       │   ├── bugs.js
+│       │   ├── chat.js
+│       │   ├── compare.js
+│       │   ├── dashboard.js
+│       │   ├── health.js
+│       │   ├── profile.js
+│       │   ├── subscription.js
+│       │   └── tutorial.js
+│       └── utils
+│           ├── api.js
+│           └── helpers.js
+├── repotutor.db
 ├── requirements.txt
-│
-├── backend/
-│   ├── config.py                   # All configuration & constants
-│   ├── models/
-│   │   └── database.py             # SQLite schema + CRUD helpers
-│   ├── routes/
-│   │   ├── auth.py                 # /api/auth/* endpoints
-│   │   ├── repos.py                # /api/repos/* endpoints
-│   │   └── chat.py                 # /api/chat/* endpoints
-│   ├── services/
-│   │   ├── github_service.py       # GitHub API integration
-│   │   └── groq_service.py         # LLM (Groq) integration
-│   └── utils/
-│       └── auth_utils.py           # Session helpers, decorators
-│
-└── frontend/
-    ├── index.html                  # Single-page app shell
-    ├── css/
-    │   ├── variables.css           # Design tokens (colours, fonts)
-    │   ├── base.css                # Reset + body + backgrounds
-    │   ├── components.css          # Shared UI components
-    │   ├── auth.css                # Login / Register page
-    │   ├── dashboard.css           # Dashboard + repo cards
-    │   ├── chat.css                # Chat + summary + files tabs
-    │   └── animations.css          # All @keyframes
-    └── js/
-        ├── app.js                  # Bootstrap / session check
-        ├── utils/
-        │   ├── api.js              # Fetch wrapper
-        │   └── helpers.js          # DOM utilities
-        ├── components/
-        │   ├── toast.js            # Toast notifications
-        │   └── markdown.js         # Markdown renderer
-        └── pages/
-            ├── auth.js             # Login / register logic
-            ├── dashboard.js        # Repo list + analyse logic
-            └── chat.js             # Chat, summary, files logic
-```
+└── run.py
 
 ---
 
